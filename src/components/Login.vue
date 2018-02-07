@@ -183,13 +183,13 @@ $transition-time: 0.3s;
 $transition-effect: linear;
 
 .root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
 
   .fc-panel {
-    position: absolute;
-    left: calc(50% - 230px);
-    top: calc(50% - 230px);
     display: flex;
     flex-direction: column;
     align-items: center;
