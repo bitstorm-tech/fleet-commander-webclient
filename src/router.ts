@@ -1,21 +1,23 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
-import About from './views/About.vue';
+import Login from '@/components/Login.vue';
+import Overview from '@/components/Overview.vue';
+import { UserService } from '@/shared/user-service';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home,
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: About,
-    },
+    { path: '', component: Login },
+    { path: '/overview', component: Overview, beforeEnter: checkAuthentication },
+    { path: '*', redirect: '/' },
   ],
 });
+
+function checkAuthentication(to: any, from: any, next: any) {
+  if (UserService.isAuthenticated()) {
+    next();
+  } else {
+    next('/');
+  }
+}
