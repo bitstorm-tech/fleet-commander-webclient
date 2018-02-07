@@ -1,13 +1,12 @@
 {
   "defaultSeverity": "warning",
   "no-unused-variable": true,
-  "extends": [
-    "tslint:recommended"
-  ],
+  "arrow-parens": false,
+  "trailing-comma": false,
   "rules": {
     "quotemark": [
       true,
-      "single"
+      "double"
     ],
     "indent": [
       true,
@@ -17,6 +16,9 @@
     "interface-name": false,
     "ordered-imports": false,
     "object-literal-sort-keys": false,
-    "no-consecutive-blank-lines": false
+    "no-consecutive-blank-lines": false,
+    "extends": [
+      "tslint:recommended"
+    ]
   }
 }

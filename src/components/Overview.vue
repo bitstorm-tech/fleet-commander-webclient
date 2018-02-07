@@ -44,17 +44,12 @@ import { Component, Vue } from "vue-property-decorator";
 export default class Overview extends Vue {
   intervalRef: any;
   // rules;
-
-  data() {
-    return {
-      titanium: 0,
-      fuel: 0,
-      energy: 0,
-      titaniumHarvested: 0,
-      fuelHarvested: 0,
-      energyHarvested: 0
-    };
-  }
+  titanium = 0;
+  fuel = 0;
+  energy = 0;
+  titaniumHarvested = 0;
+  fuelHarvested = 0;
+  energyHarvested = 0;
 
   // updateResource(type) {
   //   axios
@@ -89,6 +84,9 @@ export default class Overview extends Vue {
       //   this.fuelHarvested += rules.FuelHarvester.perSecond[0];
       //   this.energyHarvested += rules.EnergyHarvester.perSecond[0];
       // }
+      this.titaniumHarvested += 15;
+      this.fuelHarvested += 7;
+      this.energyHarvested += 5;
     }, 2000);
   }
 
