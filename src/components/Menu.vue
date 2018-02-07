@@ -6,8 +6,9 @@
 
 <script lang="ts">
 import { UserService } from "@/shared/user-service";
-import { Vue } from "vue-property-decorator";
+import { Vue, Component } from "vue-property-decorator";
 
+@Component
 export default class Menu extends Vue {
   signOut() {
     UserService.signOut();

@@ -179,7 +179,6 @@ export default class Login extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "../styles.scss";
 $transition-time: 0.3s;
 $transition-effect: linear;
 
