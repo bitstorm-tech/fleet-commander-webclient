@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --port 4200",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -18,7 +18,7 @@
     "@vue/cli-plugin-babel": "^3.0.0-alpha.9",
     "@vue/cli-plugin-typescript": "^3.0.0-alpha.9",
     "@vue/cli-service": "^3.0.0-alpha.9",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.9.0",
     "sass-loader": "^6.0.6",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^6.0.0",

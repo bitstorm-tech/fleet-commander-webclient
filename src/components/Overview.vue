@@ -33,7 +33,6 @@
 
 <script lang="ts">
 import fcMenu from "@/components/Menu.vue";
-import axios from "axios";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
@@ -51,17 +50,17 @@ export default class Overview extends Vue {
   fuelHarvested = 0;
   energyHarvested = 0;
 
-  // updateResource(type) {
-  //   axios
-  //     .put("/resources", type)
-  //     .then(response => {
-  //       const resource = Resources[type];
-  //       const resourceHarvested = resource + "Harvested";
-  //       this[resource] = response.data;
-  //       this[resourceHarvested] = 0;
-  //     })
-  //     .catch(console.log);
-  // }
+  updateResource(type: number) {
+    // axios
+    //   .put("/resources", type)
+    //   .then(response => {
+    //     const resource = Resources[type];
+    //     const resourceHarvested = resource + "Harvested";
+    //     this[resource] = response.data;
+    //     this[resourceHarvested] = 0;
+    //   })
+    //   .catch(console.log);
+  }
 
   created() {
     // axios

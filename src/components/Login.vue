@@ -43,7 +43,7 @@
         <input placeholder="Username" v-model="username">
         <input placeholder="Verification Code" v-model="confirmationCode">
         <button :disabled="!canConfirm()" @click="confirm()">Confirm</button>
-        <button @click="resendConfirmationCode()">Resend Code</button>
+        <!--<button @click="resendConfirmationCode()">Resend Code</button>-->
         <button @click="state = LoginState.LOGIN">Cancel</button>
       </div>
     </transition>
@@ -54,184 +54,125 @@
 </template>
 
 <script lang="ts">
-import { UserService } from "@/shared/user-service";
-import { Vue, Component } from "vue-property-decorator";
+  import { Component, Vue } from 'vue-property-decorator';
+  import MessageService from '@/shared/message-service';
 
-@Component
-export default class Login extends Vue {
-  state = 1;
-  errorMessage = "";
-  username = "";
-  password = "";
-  passwordRepeat = "";
-  email = "";
-  confirmationCode = "";
+  @Component
+  export default class Login extends Vue {
+    state = 1;
+    username = '';
+    password = '';
+    passwordRepeat = '';
+    email = '';
+    confirmationCode = '';
 
-  LoginState = {
-    LOGIN: 1,
-    CREATE: 2,
-    CONFIRM: 3
-  };
+    LoginState = {
+      LOGIN: 1,
+      CREATE: 2,
+      CONFIRM: 3
+    };
 
-  isValid() {
-    return true;
-  }
-
-  canSignIn() {
-    return this.email.length > 0 && this.password.length > 0;
-  }
-
-  canSignUp() {
-    return (
-      this.username.length > 0 &&
-      this.email.length > 0 &&
-      this.password.length > 0 &&
-      this.isPasswordCorrect()
-    );
-  }
-
-  canConfirm() {
-    return this.username.length > 0 && this.confirmationCode.length > 0;
-  }
-
-  signIn() {
-    if (this.canSignIn()) {
-      this.errorMessage = "";
-      UserService.signIn(this.email, this.password)
-        .then(() => this.$router.push("overview"))
-        .catch(error => (this.errorMessage = "Sing in failed: " + error));
-    }
-  }
-
-  signUp() {
-    if (this.canSignUp()) {
-      UserService.signUp(this.email, this.username, this.password)
-        .then(() => {
-          this.state = this.LoginState.CONFIRM;
-        })
-        .catch(error => {
-          if (error.response.status === 403) {
-            this.errorMessage = "Sign up failed: user already exists!";
-          } else {
-            this.errorMessage = "Sign up failed: " + error;
-          }
-        });
-    }
-  }
-
-  // resendConfirmationCode() {
-  //   this.errorMessage = "";
-  //   UserService.resendConfirmationCode(
-  //     this.username,
-  //     () => {},
-  //     failure => {
-  //       this.errorMessage = "Resend confirmation code failed: " + failure;
-  //     }
-  //   );
-  // }
-
-  // confirm() {
-  //   if (this.canConfirm()) {
-  //     this.errorMessage = "";
-  //     UserService.confirm(
-  //       this.username,
-  //       this.confirmationCode,
-  //       () => {
-  //         this.state = this.LoginState.LOGIN;
-  //       },
-  //       failure => {
-  //         this.errorMessage = "Confirmation failed: " + failure;
-  //       }
-  //     );
-  //   }
-  // }
-
-  isPasswordCorrect() {
-    return this.password === this.passwordRepeat;
-  }
-
-  beforeRouteEnter(to: any, from: any, next: any) {
-    if (UserService.isAuthenticated()) {
-      // if (UserService.isAuthenticated()) {
-      next("overview");
-    } else {
-      next();
-    }
-  }
-
-  created() {
-    const queryState = Number(this.$route.query.state);
-    if (queryState && queryState > 0 && queryState <= 3) {
-      this.state = queryState;
+    isValid() {
+      return true;
     }
 
-    const queryConfirmationCode = this.$route.query.confirmationCode;
-    if (queryConfirmationCode) {
-      this.confirmationCode = queryConfirmationCode;
+    canSignIn() {
+      return this.email.length > 0 && this.password.length > 0;
     }
 
-    const queryUsername = this.$route.query.username;
-    if (queryUsername) {
-      this.username = queryUsername;
+    canSignUp() {
+      return (
+        this.username.length > 0 &&
+        this.email.length > 0 &&
+        this.password.length > 0 &&
+        this.password === this.passwordRepeat
+      );
+    }
+
+    canConfirm() {
+      return this.username.length > 0 && this.confirmationCode.length > 0;
+    }
+
+    signIn() {
+      if (this.canSignIn()) {
+        MessageService.sendSignIn(this.email, this.password);
+      }
+    }
+
+    signUp() {
+      if (this.canSignUp()) {
+        MessageService.sendSignUp(this.username, this.email, this.password);
+      }
+    }
+
+    beforeRouteEnter(to: any, from: any, next: any) {
+      if (MessageService.isConnected()) {
+        next('overview');
+      } else {
+        next();
+      }
+    }
+
+    get errorMessage() {
+      return this.$store.state.errorText;
     }
   }
-}
 </script>
 
 <style scoped lang="scss">
-$transition-time: 0.3s;
-$transition-effect: linear;
+  $transition-time: 0.3s;
+  $transition-effect: linear;
 
-.root {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-
-  .fc-panel {
+  .root {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 40px 25px 0;
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    height: 100%;
 
-    input {
-      margin-bottom: 15px;
-      width: 350px;
-    }
+    .fc-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 25px 0;
+      width: 400px;
+      height: 400px;
 
-    button {
-      width: 200px;
-      margin-bottom: 15px;
+      input {
+        margin-bottom: 15px;
+        width: 350px;
+      }
+
+      button {
+        width: 200px;
+        margin-bottom: 15px;
+      }
     }
   }
-}
 
-.error-msg {
-  position: absolute;
-  top: calc(50% + 230px);
-  left: calc(50% - 230px);
-  width: 400px;
-  margin: 0;
-  color: red;
-}
+  .error-msg {
+    position: absolute;
+    top: calc(50% + 230px);
+    left: calc(50% - 230px);
+    width: 400px;
+    margin: 0;
+    color: red;
+  }
 
-.greetings {
-  margin-bottom: 15px;
-}
+  .greetings {
+    margin-bottom: 15px;
+  }
 
-.v-enter {
-  opacity: 0;
-}
+  .v-enter {
+    opacity: 0;
+  }
 
-.v-enter-active {
-  transition: opacity $transition-time $transition-effect;
-}
+  .v-enter-active {
+    transition: opacity $transition-time $transition-effect;
+  }
 
-.v-leave-active {
-  transition: opacity $transition-time $transition-effect;
-  opacity: 0;
-}
+  .v-leave-active {
+    transition: opacity $transition-time $transition-effect;
+    opacity: 0;
+  }
 </style>
