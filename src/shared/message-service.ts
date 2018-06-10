@@ -32,8 +32,6 @@ export default class MessageService {
   }
 
   static sendSignIn(email: string, password: string) {
-    this.connect();
-
     const message: Message = {
       type: MessageType.SignIn,
       payload: {
@@ -42,12 +40,10 @@ export default class MessageService {
       }
     };
 
-    this.socket.send(JSON.stringify(message));
+    this.send(message);
   }
 
   static sendSignUp(username: string, email: string, password: string) {
-    this.connect();
-
     const message: Message = {
       type: MessageType.SignUp,
       payload: {
@@ -57,7 +53,22 @@ export default class MessageService {
       }
     };
 
-    this.socket.send(JSON.stringify(message));
+    this.send(message);
+  }
+
+  private static send(message: Message) {
+    if (this.isConnected()) {
+      this.socket.send(JSON.stringify(message));
+    } else {
+      const interval = setInterval(() => {
+        if (this.isConnected()) {
+          clearInterval(interval);
+          this.socket.send(JSON.stringify(message));
+        } else {
+          this.connect();
+        }
+      }, 250);
+    }
   }
 
   static isConnected(): boolean {
