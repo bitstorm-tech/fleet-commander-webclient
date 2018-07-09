@@ -1,10 +1,9 @@
-let messageType = 0;
-
 export enum MessageType {
-  Error = messageType++,
-  SignUp = messageType++,
-  SignIn = messageType++,
-  SignOut = messageType++
+  Error = 0,
+  SignUp = 1,
+  SignIn = 2,
+  SignOut = 3,
+  Correction = 4
 }
 
 export interface Message {
@@ -19,4 +18,10 @@ export interface SignInPayload {
 
 export interface ErrorPayload {
   text: string
+}
+
+export interface CorrectionPayload {
+  titanium: number,
+  fuel: number,
+  energy: number
 }
