@@ -3,8 +3,11 @@ $panel-border-color: rgba(35, 213, 217, .5);
 $font-color-bright: rgb(150, 150, 150);
 $glow-color: rgb(50, 255, 50);
 $transition-time: .25s;
-//$font-family: 'Share Tech Mono', monospace;
-$font-family: 'Coda', cursive;
+$font-family: 'Share Tech Mono', monospace;
+
+@mixin panel-background-color($alpha: .7) {
+  background: rgba(9, 33, 43, $alpha);
+}
 
 .font-very-small {
   font-family: $font-family;
@@ -64,12 +67,9 @@ input {
   transition: box-shadow $transition-time, border-color $transition-time;
   padding: 7px 5px;
 
-  &:hover, &:focus {
+  &:focus {
     box-shadow: 0 0 15px $glow-color;
     border-color: $glow-color;
-  }
-
-  &:focus {
     outline: none;
   }
 }

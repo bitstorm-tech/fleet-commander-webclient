@@ -2,31 +2,32 @@
   <div id="root">
     <fc-menu></fc-menu>
     <div class="fc-panel resources">
-      <table>
-        <tbody>
-        <tr>
-          <td>Titanium</td>
-          <td class="amount">{{titanium}}</td>
-          <td>
-            <button @click="updateResource(0)">Harvest {{titaniumHarvested}}</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Fuel</td>
-          <td class="amount">{{fuel}}</td>
-          <td>
-            <button @click="updateResource(1)">Harvest {{fuelHarvested}}</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Energy</td>
-          <td class="amount">{{energy}}</td>
-          <td>
-            <button @click="updateResource(2)">Harvest {{energyHarvested}}</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <!--<table>-->
+        <!--<tbody>-->
+        <!--<tr>-->
+          <!--<td>Titanium</td>-->
+          <!--<td class="amount">{{titanium}}</td>-->
+          <!--<td>-->
+            <!--<button @click="updateResource(0)">Harvest {{titaniumHarvested}}</button>-->
+          <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+          <!--<td>Fuel</td>-->
+          <!--<td class="amount">{{fuel}}</td>-->
+          <!--<td>-->
+            <!--<button @click="updateResource(1)">Harvest {{fuelHarvested}}</button>-->
+          <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+          <!--<td>Energy</td>-->
+          <!--<td class="amount">{{energy}}</td>-->
+          <!--<td>-->
+            <!--<button @click="updateResource(2)">Harvest {{energyHarvested}}</button>-->
+          <!--</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+      <!--</table>-->
+      <span>Titanium: {{titaniumHarvested}} <b>---</b> Fuel: {{fuelHarvested}} <b>---</b> Energy: {{energyHarvested}}</span>
     </div>
   </div>
 </template>
@@ -42,10 +43,6 @@ import { Component, Vue } from "vue-property-decorator";
 })
 export default class Overview extends Vue {
   intervalRef: any;
-  // rules;
-  titanium = 0;
-  fuel = 0;
-  energy = 0;
   titaniumHarvested = 0;
   fuelHarvested = 0;
   energyHarvested = 0;

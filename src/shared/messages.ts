@@ -17,7 +17,7 @@ export interface SignInPayload {
 }
 
 export interface ErrorPayload {
-  text: string
+  message: string
 }
 
 export interface CorrectionPayload {

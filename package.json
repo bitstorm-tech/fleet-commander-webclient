@@ -22,7 +22,8 @@
     "sass-loader": "^6.0.6",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^6.0.0",
-    "vue-template-compiler": "^2.5.13"
+    "vue-template-compiler": "^2.5.13",
+    "typescript": "^3.0.0"
   },
   "browserslist": [
     "> 1%",
