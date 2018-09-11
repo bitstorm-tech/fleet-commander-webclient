@@ -22,7 +22,7 @@
     <!-- Sign Up Dialog -->
     <transition>
       <div class="fc-panel" v-if="state === LoginState.CREATE">
-        <input placeholder="Username" v-model="username" />
+        <input placeholder="Name" v-model="name" />
         <input placeholder="Email" type="email" v-model="email" />
         <input placeholder="Password" type="password" v-model="password" />
         <input placeholder="Confirm Password" type="password" v-model="passwordRepeat" />
@@ -35,10 +35,10 @@
     <transition>
       <div class="fc-panel" v-if="state === LoginState.CONFIRM">
         <div class="greetings font-big">
-          Greetings {{username}},
-          <br> you should have received an e-mail with a confirmation code. Enter your username and the confirmation code in here. If you have not received this e-mail, you have either entered a wrong e-mail address in the account creation or you can get a new confirmation code by entering your username and click the 'Resend Code' button below.
+          Greetings {{name}},
+          <br> you should have received an e-mail with a confirmation code. Enter your name and the confirmation code in here. If you have not received this e-mail, you have either entered a wrong e-mail address in the account creation or you can get a new confirmation code by entering your username and click the 'Resend Code' button below.
         </div>
-        <input placeholder="Username" v-model="username">
+        <input placeholder="Name" v-model="name">
         <input placeholder="Verification Code" v-model="confirmationCode">
         <button :disabled="!canConfirm()" @click="confirm()">Confirm</button>
         <!--<button @click="resendConfirmationCode()">Resend Code</button>-->
@@ -60,7 +60,7 @@ import fcPopup from "@/components/Popup.vue";
 })
 export default class Login extends Vue {
   state = 1;
-  username = "";
+  name = "";
   password = "";
   passwordRepeat = "";
   email = "";
@@ -82,7 +82,7 @@ export default class Login extends Vue {
 
   canSignUp() {
     return (
-      this.username.length > 0 &&
+      this.name.length > 0 &&
       this.email.length > 0 &&
       this.password.length > 0 &&
       this.password === this.passwordRepeat
@@ -90,7 +90,7 @@ export default class Login extends Vue {
   }
 
   canConfirm() {
-    return this.username.length > 0 && this.confirmationCode.length > 0;
+    return this.name.length > 0 && this.confirmationCode.length > 0;
   }
 
   signIn() {
@@ -101,7 +101,7 @@ export default class Login extends Vue {
 
   signUp() {
     if (this.canSignUp()) {
-      MessageService.sendSignUp(this.username, this.email, this.password);
+      MessageService.sendSignUp(this.name, this.email, this.password);
     }
   }
 

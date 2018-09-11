@@ -1,6 +1,6 @@
-import { ErrorPayload, Message, MessageType } from "@/shared/messages";
-import router from "@/router";
-import store from "@/store";
+import { Message, MessageType } from '@/shared/messages';
+import router from '@/router';
+import store from '@/store';
 
 
 const messageHandler = (messageEvent: MessageEvent) => {
@@ -8,14 +8,14 @@ const messageHandler = (messageEvent: MessageEvent) => {
 
   switch (message.type) {
     case MessageType.Error:
-      const error = <ErrorPayload>message.payload;
-      console.log("ERROR", error);
-      store.commit("setErrorMessage", error.message);
+      const errorMessage = message.payload;
+      console.log('ERROR', errorMessage);
+      store.commit('setErrorMessage', errorMessage);
       break;
 
     case MessageType.SignIn:
     case MessageType.SignUp:
-      router.push("/overview");
+      router.push('/overview');
       break;
   }
 };
@@ -25,7 +25,7 @@ export default class MessageService {
 
   public static connect() {
     if (!this.isConnected() && !this.isConnecting()) {
-      this.socket = new WebSocket("ws://localhost:8080/websocket");
+      this.socket = new WebSocket('ws://localhost:8080/websocket');
       this.socket.onmessage = messageHandler;
     }
   }
@@ -42,11 +42,11 @@ export default class MessageService {
     this.send(message);
   }
 
-  static sendSignUp(username: string, email: string, password: string) {
+  static sendSignUp(name: string, email: string, password: string) {
     const message: Message = {
       type: MessageType.SignUp,
       payload: {
-        username,
+        name,
         email,
         password
       }
