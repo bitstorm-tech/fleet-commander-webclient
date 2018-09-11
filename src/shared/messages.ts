@@ -1,13 +1,14 @@
 export enum MessageType {
-  Error = 0,
-  SignUp = 1,
-  SignIn = 2,
-  SignOut = 3,
-  Correction = 4
+  Error = "error",
+  SignUp = "sign_up",
+  SignIn = "sign_in",
+  SignOut = "sign_out",
+  Correction = "correction",
+  GameRules = "game_rules"
 }
 
 export interface Message {
-  type: number,
+  type: MessageType,
   payload?: any
 }
 

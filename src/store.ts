@@ -1,28 +1,29 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import { Resources } from "@/shared/resources";
+import Vue from "vue"
+import Vuex from "vuex"
+import { Resources } from "@/shared/resources"
+import { GameRules } from "@/shared/game-rules"
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    errorMessage: "",
-    titanium: 0,
-    fuel: 0,
-    energy: 0
-  },
-  mutations: {
-    setErrorMessage(state, errorMessage: string) {
-      state.errorMessage = errorMessage;
-    },
-    clearErrorMessage(state) {
-      state.errorMessage = "";
-    },
-    updateResources(state, resources: Resources) {
-      state.titanium = resources.titanium;
-      state.fuel = resources.fuel;
-      state.energy = resources.energy;
-    }
-  },
-  actions: {}
-});
+	state: {
+		errorMessage: "",
+		resources: {},
+		gameRules: {}
+	},
+	mutations: {
+		setErrorMessage(state, errorMessage: string) {
+			state.errorMessage = errorMessage
+		},
+		clearErrorMessage(state) {
+			state.errorMessage = ""
+		},
+		updateResources(state, resources: Resources) {
+			state.resources = resources
+		},
+		updateGameRules(state, gameRules: GameRules) {
+			state.gameRules = gameRules
+		}
+	},
+	actions: {}
+})
