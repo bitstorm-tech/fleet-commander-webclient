@@ -1,28 +1,43 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import { Resources } from "@/shared/resources"
-import { GameRules } from "@/shared/game-rules"
+import { GameRules, NewGameRules } from "@/shared/game-rules"
+import { MotherShip, NewMotherShip, NewResources, NewShips, Resources, Ships } from "@/shared/player"
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-	state: {
-		errorMessage: "",
-		resources: {},
-		gameRules: {}
-	},
+export interface State {
+	errorMessage: string
+	resources: Resources
+	ships: Ships
+	motherShip: MotherShip
+	gameRules: GameRules
+}
+
+const INITIAL_STATE: State = {
+	errorMessage: "",
+	resources: NewResources(),
+	ships: NewShips(),
+	motherShip: NewMotherShip(),
+	gameRules: NewGameRules()
+}
+
+export default new Vuex.Store<State>({
+	state: INITIAL_STATE,
 	mutations: {
-		setErrorMessage(state, errorMessage: string) {
+		updateErrorMessage(state: State, errorMessage: string) {
 			state.errorMessage = errorMessage
 		},
-		clearErrorMessage(state) {
-			state.errorMessage = ""
-		},
-		updateResources(state, resources: Resources) {
+		updateResources(state: State, resources: Resources) {
 			state.resources = resources
 		},
-		updateGameRules(state, gameRules: GameRules) {
+		updateGameRules(state: State, gameRules: GameRules) {
 			state.gameRules = gameRules
+		},
+		updateShips(state: State, ships: Ships) {
+			state.ships = ships
+		},
+		updateMotherShip(state: State, motherShip: MotherShip) {
+			state.motherShip = motherShip
 		}
 	},
 	actions: {}

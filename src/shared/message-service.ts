@@ -1,32 +1,6 @@
 import { Message, MessageType } from "@/shared/messages"
-import router from "@/router"
-import store from "@/store"
+import { messageHandler } from "@/shared/message-handler"
 
-
-const messageHandler = (messageEvent: MessageEvent) => {
-	const message: Message = JSON.parse(messageEvent.data)
-
-	switch (message.type) {
-		case MessageType.Error:
-			const errorMessage = message.payload
-			console.log("ERROR", errorMessage)
-			store.commit("setErrorMessage", errorMessage)
-			break
-
-		case MessageType.SignIn:
-		case MessageType.SignUp:
-			router.push("/overview")
-			break
-
-		case MessageType.GameRules:
-			store.commit("updateGameRules", message.payload)
-			break
-
-		case MessageType.Correction:
-			store.commit("updateResources", message.payload)
-			break
-	}
-}
 
 export default class MessageService {
 	private static socket: WebSocket
