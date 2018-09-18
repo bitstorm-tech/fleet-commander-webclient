@@ -2,14 +2,14 @@
 	<div id="root">
 		<fc-menu></fc-menu>
 		<div class="fc-panel resources">
-			<span>Titanium: {{titaniumHarvested}} <b>---</b> Fuel: {{fuelHarvested}} <b>---</b> Energy: {{energyHarvested}}</span>
+			<span>Titanium: {{titanium}} <b>---</b> Fuel: {{fuel}} <b>---</b> Energy: {{energy}}</span>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-	import fcMenu from '@/components/Menu.vue'
-	import { Component, Vue } from 'vue-property-decorator'
+	import fcMenu from "@/components/Menu.vue"
+	import { Component, Vue } from "vue-property-decorator"
 
 	@Component({
 		components: {
@@ -17,27 +17,17 @@
 		}
 	})
 	export default class Overview extends Vue {
-		intervalRef: any
-		titaniumHarvested = 0
-		fuelHarvested = 0
-		energyHarvested = 0
-
-		created() {
-			this.intervalRef = setInterval(() => {
-				// if (rules) {
-				//   this.titaniumHarvested += rules.TitaniumHarvester.perSecond[0];
-				//   this.fuelHarvested += rules.FuelHarvester.perSecond[0];
-				//   this.energyHarvested += rules.EnergyHarvester.perSecond[0];
-				// }
-				this.titaniumHarvested += 15
-				this.fuelHarvested += 7
-				this.energyHarvested += 5
-			}, 2000)
+		get titanium(): number {
+			return this.$store.state.resources.titanium
 		}
 
-		// destroyed() {
-		//   clearInterval(intervalRef);
-		// }
+		get fuel(): number {
+			return this.$store.state.resources.fuel
+		}
+
+		get energy(): number {
+			return this.$store.state.resources.energy
+		}
 	}
 </script>
 

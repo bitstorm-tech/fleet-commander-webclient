@@ -1,11 +1,11 @@
-import { Message, MessageType } from "@/shared/messages"
-import { messageHandler } from "@/shared/message-handler"
+import { Message, MessageType } from "../messages"
+import { messageHandler } from "../message-handler"
 
 
 export default class MessageService {
 	private static socket: WebSocket
 
-	public static connect() {
+	static connect() {
 		if (!this.isConnected() && !this.isConnecting()) {
 			this.socket = new WebSocket("ws://localhost:8080/websocket")
 			this.socket.onmessage = messageHandler

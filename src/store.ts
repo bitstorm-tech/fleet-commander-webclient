@@ -1,7 +1,10 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import { GameRules, NewGameRules } from "@/shared/game-rules"
-import { MotherShip, NewMotherShip, NewResources, NewShips, Resources, Ships } from "@/shared/player"
+import { GameRules, NewGameRules } from "@/shared/entities/game-rules"
+import { NewResources, Resources } from "@/shared/entities/resources"
+import { NewShips, Ships } from "@/shared/entities/ships"
+import { MotherShip, NewMotherShip } from "@/shared/entities/mother-ship"
+import { ResourcesManager } from "@/shared/services/resources-manager"
 
 Vue.use(Vuex)
 
@@ -21,7 +24,7 @@ const INITIAL_STATE: State = {
 	gameRules: NewGameRules()
 }
 
-export default new Vuex.Store<State>({
+const store = new Vuex.Store<State>({
 	state: INITIAL_STATE,
 	mutations: {
 		updateErrorMessage(state: State, errorMessage: string) {
@@ -42,3 +45,8 @@ export default new Vuex.Store<State>({
 	},
 	actions: {}
 })
+
+export default store
+
+ResourcesManager.init(store, 2)
+ResourcesManager.startCounting()
