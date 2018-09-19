@@ -1,6 +1,8 @@
 import { Store } from "vuex"
 import { State } from "@/store"
 import { AddResources, Resources } from "@/shared/entities/resources"
+import { MessageService } from "@/shared/services/message-service"
+import { MessageType } from "@/shared/messages"
 import Timer = NodeJS.Timer
 
 export class ResourcesManager {
@@ -11,6 +13,7 @@ export class ResourcesManager {
 	public static init(store: Store<State>, updateIntervalSeconds: number) {
 		this.store = store
 		this.updateIntervalSeconds = updateIntervalSeconds
+		MessageService.send({type: MessageType.Resources})
 	}
 
 	static startCounting() {

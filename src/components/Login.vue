@@ -55,7 +55,7 @@
 
 <script lang="ts">
 	import { Component, Vue } from "vue-property-decorator"
-	import MessageService from "@/shared/services/message-service"
+	import { MessageService } from "@/shared/services/message-service"
 	import fcPopup from "@/components/Popup.vue"
 
 	@Component({

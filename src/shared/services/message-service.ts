@@ -2,11 +2,12 @@ import { Message, MessageType } from "../messages"
 import { messageHandler } from "../message-handler"
 
 
-export default class MessageService {
+export class MessageService {
 	private static socket: WebSocket
 
-	static connect() {
+	private static connect() {
 		if (!this.isConnected() && !this.isConnecting()) {
+			console.log("Connecting websocket to backend ...")
 			this.socket = new WebSocket("ws://localhost:8080/websocket")
 			this.socket.onmessage = messageHandler
 		}
@@ -37,7 +38,7 @@ export default class MessageService {
 		this.send(message)
 	}
 
-	private static send(message: Message) {
+	static send(message: Message) {
 		if (this.isConnected()) {
 			this.socket.send(JSON.stringify(message))
 		} else {
@@ -60,5 +61,3 @@ export default class MessageService {
 		return this.socket && this.socket.readyState === WebSocket.CONNECTING
 	}
 }
-
-MessageService.connect()

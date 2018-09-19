@@ -6,93 +6,97 @@ $transition-time: .25s;
 $font-family: 'Share Tech Mono', monospace;
 
 @mixin panel-background-color($alpha: .7) {
-  background: rgba(9, 33, 43, $alpha);
+	background: rgba(9, 33, 43, $alpha);
+}
+
+* {
+	box-sizing: border-box;
 }
 
 .font-very-small {
-  font-family: $font-family;
-  font-size: 10px;
+	font-family: $font-family;
+	font-size: 10px;
 }
 
 .font-small {
-  font-family: $font-family;
-  font-size: 12px;
+	font-family: $font-family;
+	font-size: 12px;
 }
 
 .font-medium {
-  font-family: $font-family;
-  font-size: 14px;
+	font-family: $font-family;
+	font-size: 14px;
 }
 
 .font-big {
-  font-family: $font-family;
-  font-size: 16px;
+	font-family: $font-family;
+	font-size: 16px;
 }
 
 .font-very-big {
-  font-family: $font-family;
-  font-size: 18px;
+	font-family: $font-family;
+	font-size: 18px;
 }
 
 button {
-  @extend .font-medium;
-  background-color: #323232;
-  color: $font-color-bright;
-  transition: text-shadow $transition-time, color $transition-time;
-  border: none;
-  border-radius: 0;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
+	@extend .font-medium;
+	background-color: #323232;
+	color: $font-color-bright;
+	transition: text-shadow $transition-time, color $transition-time;
+	border: none;
+	border-radius: 0;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
 
-  &:hover {
-    text-shadow: 0 0 10px $glow-color;
-    color: black;
-  }
+	&:hover {
+		text-shadow: 0 0 10px $glow-color;
+		color: black;
+	}
 
-  &:hover:disabled {
-    text-shadow: 0 0 10px red;
-  }
+	&:hover:disabled {
+		text-shadow: 0 0 10px red;
+	}
 
-  &:focus {
-    outline: none;
-  }
+	&:focus {
+		outline: none;
+	}
 }
 
 input {
-  @extend .font-medium;
-  background-color: $panel-background-color;
-  border: solid thin $panel-border-color;
-  color: $font-color-bright;
-  transition: box-shadow $transition-time, border-color $transition-time;
-  padding: 7px 5px;
+	@extend .font-medium;
+	background-color: $panel-background-color;
+	border: solid thin $panel-border-color;
+	color: $font-color-bright;
+	transition: box-shadow $transition-time, border-color $transition-time;
+	padding: 7px 5px;
 
-  &:focus {
-    box-shadow: 0 0 15px $glow-color;
-    border-color: $glow-color;
-    outline: none;
-  }
+	&:focus {
+		box-shadow: 0 0 15px $glow-color;
+		border-color: $glow-color;
+		outline: none;
+	}
 }
 
 .input-error {
-  border-color: red;
+	border-color: red;
 }
 
 .fc-panel {
-  background-color: $panel-background-color;
-  border: solid thin $panel-border-color;
-  color: whitesmoke;
+	background-color: $panel-background-color;
+	border: solid thin $panel-border-color;
+	color: whitesmoke;
 }
 
 .fc-clickable {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .fc-link {
-  @extend .fc-clickable;
-  transition: text-shadow $transition-time;
+	@extend .fc-clickable;
+	transition: text-shadow $transition-time;
 
-  &:hover {
-    text-shadow: 0 0 15px $glow-color;
-  }
+	&:hover {
+		text-shadow: 0 0 15px $glow-color;
+	}
 }

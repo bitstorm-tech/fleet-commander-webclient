@@ -2,7 +2,7 @@ import Vue from "vue"
 import Router from "vue-router"
 import Login from "@/components/Login.vue"
 import Overview from "@/components/Overview.vue"
-import MessageService from "@/shared/services/message-service"
+import { MessageService } from "@/shared/services/message-service"
 
 Vue.use(Router)
 
