@@ -1,24 +1,23 @@
 {
-  "defaultSeverity": "warning",
-  "no-unused-variable": true,
-  "arrow-parens": false,
-  "trailing-comma": false,
-  "rules": {
-    "quotemark": [
-      true,
-      "double"
-    ],
-    "indent": [
-      true,
-      "spaces",
-      2
-    ],
-    "interface-name": false,
-    "ordered-imports": false,
-    "object-literal-sort-keys": false,
-    "no-consecutive-blank-lines": false,
-    "extends": [
-      "tslint:recommended"
-    ]
-  }
+	"defaultSeverity": "warning",
+	"no-unused-variable": true,
+	"arrow-parens": false,
+	"trailing-comma": false,
+	"rules": {
+		"quotemark": [
+			true,
+			"double"
+		],
+		"indent": [
+			true,
+			"tabs"
+		],
+		"interface-name": false,
+		"ordered-imports": false,
+		"object-literal-sort-keys": false,
+		"no-consecutive-blank-lines": false,
+		"extends": [
+			"tslint:recommended"
+		]
+	}
 }
