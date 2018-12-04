@@ -57,7 +57,7 @@
 	import { Component, Vue } from "vue-property-decorator"
 	import fcPopup from "@/components/Popup.vue"
 	import { messageService } from "@/main"
-	import { createSignInMessage, createSignUpMessage } from "@/shared/messages"
+	import { createSignInMessage, createSignUpMessage } from "@/shared/Messages"
 
 	@Component({
 		components: {

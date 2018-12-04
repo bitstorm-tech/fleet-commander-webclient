@@ -1,6 +1,6 @@
-import { Message, MessageType } from "@/shared/messages"
-import store from "@/store"
-import router from "@/router"
+import { Message, MessageType } from "@/shared/Messages"
+import store from "@/Store"
+import router from "@/Router"
 
 export const messageHandler = (messageEvent: MessageEvent) => {
 	const message: Message = JSON.parse(messageEvent.data)

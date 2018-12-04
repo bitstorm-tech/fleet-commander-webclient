@@ -2,7 +2,7 @@ import Login from "@/components/Login.vue"
 import { messageService } from "@/main"
 import Vue from "vue"
 import Router from "vue-router"
-import Main from "@/components/Main.vue"
+import Main from "@/components/MainView.vue"
 
 Vue.use(Router)
 

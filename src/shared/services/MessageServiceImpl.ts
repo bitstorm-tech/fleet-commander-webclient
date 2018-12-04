@@ -1,6 +1,6 @@
-import { Message } from "../messages"
-import { messageHandler } from "../message-handler"
 import { MessageService } from "@/shared/services/MessageService"
+import { messageHandler } from "@/shared/MessageHandler"
+import { Message } from "@/shared/Messages"
 
 
 export class MessageServiceImpl implements MessageService {

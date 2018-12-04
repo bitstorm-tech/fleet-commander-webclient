@@ -1,6 +1,6 @@
 import { Store } from "vuex"
-import { State } from "@/store"
-import { AddResources, Resources } from "@/shared/entities/resources"
+import { State } from "@/Store"
+import { AddResources, Resources } from "@/shared/entities/Resources"
 import Timer = NodeJS.Timer
 
 export class ResourcesManager {

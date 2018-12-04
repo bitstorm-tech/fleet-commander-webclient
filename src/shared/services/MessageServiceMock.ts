@@ -1,6 +1,6 @@
 import { MessageService } from "@/shared/services/MessageService"
-import { Message, MessageType } from "@/shared/messages"
-import router from "@/router"
+import { Message, MessageType } from "@/shared/Messages"
+import router from "@/Router"
 
 export class MessageServiceMock implements MessageService {
 	isConnected(): boolean {

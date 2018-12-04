@@ -12,7 +12,7 @@
 			fcMenu
 		}
 	})
-	export default class Main extends Vue {
+	export default class MainView extends Vue {
 
 	}
 </script>

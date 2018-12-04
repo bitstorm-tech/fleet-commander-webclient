@@ -1,9 +1,9 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import { GameRules, NewGameRules } from "@/shared/entities/game-rules"
-import { NewResources, Resources } from "@/shared/entities/resources"
-import { NewShips, Ships } from "@/shared/entities/ships"
-import { MotherShip, NewMotherShip } from "@/shared/entities/mother-ship"
+import { GameRules, NewGameRules } from "@/shared/entities/GameRules"
+import { NewResources, Resources } from "@/shared/entities/Resources"
+import { NewShips, Ships } from "@/shared/entities/Ships"
+import { MotherShip, NewMotherShip } from "@/shared/entities/MotherShip"
 
 Vue.use(Vuex)
 
