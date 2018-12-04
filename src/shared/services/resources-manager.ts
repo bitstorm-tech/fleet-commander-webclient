@@ -1,33 +1,27 @@
 import { Store } from "vuex"
 import { State } from "@/store"
 import { AddResources, Resources } from "@/shared/entities/resources"
-import { MessageService } from "@/shared/services/message-service"
-import { MessageType } from "@/shared/messages"
 import Timer = NodeJS.Timer
 
 export class ResourcesManager {
-	static store: Store<State>
-	static updateIntervalSeconds: number
-	static updateInterval: Timer
+	readonly store: Store<State>
+	readonly updateIntervalMs: number
+	readonly timer: Timer
 
-	public static init(store: Store<State>, updateIntervalSeconds: number) {
+	constructor(store: Store<State>, updateIntervalSeconds: number = 1000) {
 		this.store = store
-		this.updateIntervalSeconds = updateIntervalSeconds
-		MessageService.send({type: MessageType.Resources})
-	}
-
-	static startCounting() {
-		this.updateInterval = setInterval(
-			() => ResourcesManager.updateResources(),
-			this.updateIntervalSeconds * 1000
+		this.updateIntervalMs = updateIntervalSeconds
+		this.timer = setInterval(
+			() => this.updateResources(),
+			this.updateIntervalMs
 		)
 	}
 
-	static stopCounting() {
-		clearInterval(this.updateInterval)
+	public stopCounting() {
+		clearInterval(this.timer)
 	}
 
-	private static updateResources() {
+	private updateResources() {
 		const newResources: Resources = {
 			titanium: this.getTitanium(),
 			fuel: this.getFuel(),
@@ -37,27 +31,27 @@ export class ResourcesManager {
 		this.store.commit("updateResources", AddResources(newResources, this.store.state.resources))
 	}
 
-	private static getTitanium(): number {
+	private getTitanium(): number {
 		const titaniumPerMinuteMotherShip = this.store.state.motherShip.titaniumPerMinute
-		const titaniumFromMotherShip = titaniumPerMinuteMotherShip * (this.updateIntervalSeconds / 60)
+		const titaniumFromMotherShip = titaniumPerMinuteMotherShip * (this.updateIntervalMs / 60)
 		const titaniumPerMinuteHarvester = this.store.state.gameRules.titaniumHarvester.harvestPerMinute
-		const titaniumFromHarvester = this.store.state.ships.titaniumHarvester * titaniumPerMinuteHarvester * (this.updateIntervalSeconds / 60)
+		const titaniumFromHarvester = this.store.state.ships.titaniumHarvester * titaniumPerMinuteHarvester * (this.updateIntervalMs / 60)
 
 		return Math.floor(titaniumFromMotherShip + titaniumFromHarvester)
 	}
 
-	private static getFuel(): number {
+	private getFuel(): number {
 		const fuelPerMinuteMotherShip = this.store.state.motherShip.fuelPerMinute
-		const fuelFromMotherShip = fuelPerMinuteMotherShip * (this.updateIntervalSeconds / 60)
+		const fuelFromMotherShip = fuelPerMinuteMotherShip * (this.updateIntervalMs / 60)
 		const fuelPerMinuteHarvester = this.store.state.gameRules.fuelHarvester.harvestPerMinute
-		const fuelFromHarvester = this.store.state.ships.fuelHarvester * fuelPerMinuteHarvester * (this.updateIntervalSeconds / 60)
+		const fuelFromHarvester = this.store.state.ships.fuelHarvester * fuelPerMinuteHarvester * (this.updateIntervalMs / 60)
 
 		return Math.floor(fuelFromMotherShip + fuelFromHarvester)
 	}
 
-	private static getEnergy(): number {
+	private getEnergy(): number {
 		const energyPerMinuteMotherShip = this.store.state.motherShip.energyPerMinute
-		const energyFromMotherShip = energyPerMinuteMotherShip * (this.updateIntervalSeconds / 60)
+		const energyFromMotherShip = energyPerMinuteMotherShip * (this.updateIntervalMs / 60)
 
 		return Math.floor(energyFromMotherShip)
 	}

@@ -55,8 +55,9 @@
 
 <script lang="ts">
 	import { Component, Vue } from "vue-property-decorator"
-	import { MessageService } from "@/shared/services/message-service"
 	import fcPopup from "@/components/Popup.vue"
+	import { messageService } from "@/main"
+	import { createSignInMessage, createSignUpMessage } from "@/shared/messages"
 
 	@Component({
 		components: {
@@ -100,21 +101,22 @@
 
 		signIn() {
 			if (this.canSignIn()) {
-				MessageService.sendSignIn(this.email, this.password)
+				const signInMessage = createSignInMessage(
+					this.email,
+					this.password
+				)
+				messageService.send(signInMessage)
 			}
 		}
 
 		signUp() {
 			if (this.canSignUp()) {
-				MessageService.sendSignUp(this.name, this.email, this.password)
-			}
-		}
-
-		beforeRouteEnter(to: any, from: any, next: any) {
-			if (MessageService.isConnected()) {
-				next("overview")
-			} else {
-				next()
+				const signUpMessage = createSignUpMessage(
+					this.name,
+					this.email,
+					this.password
+				)
+				messageService.send(signUpMessage)
 			}
 		}
 
@@ -134,6 +136,7 @@
 
 	.root {
 		display: flex;
+		position: absolute;
 		justify-content: center;
 		align-items: center;
 		width: 100%;

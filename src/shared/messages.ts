@@ -19,3 +19,24 @@ export interface Message {
 	type: MessageType,
 	payload?: any
 }
+
+export function createSignInMessage(email: string, password: string): Message {
+	return {
+		type: MessageType.SignIn,
+		payload: {
+			email,
+			password
+		}
+	}
+}
+
+export function createSignUpMessage(name: string, email: string, password: string): Message {
+	return {
+		type: MessageType.SignUp,
+		payload: {
+			name,
+			email,
+			password
+		}
+	}
+}

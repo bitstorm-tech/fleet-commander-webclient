@@ -22,6 +22,7 @@
 <style scoped>
 	#root {
 		display: flex;
+		position: absolute;
 		flex-direction: column;
 		width: 200px;
 		height: 100%;

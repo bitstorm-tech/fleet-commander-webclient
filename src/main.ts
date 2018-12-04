@@ -1,26 +1,33 @@
 import Vue from "vue"
 import axios from "axios"
 import * as THREE from "three"
-import { Camera, Mesh, Scene, WebGLRenderer } from "three"
-import Login from "@/components/Login.vue"
+import { Mesh, PerspectiveCamera, Scene, WebGLRenderer } from "three"
+import store from "@/store"
+import router from "@/router"
+import App from "@/App.vue"
+import { MessageServiceMock } from "@/shared/services/MessageServiceMock"
+import { MessageService } from "@/shared/services/MessageService"
 
 Vue.config.productionTip = false
 
 axios.defaults.baseURL = "http://localhost:8080"
 
-// new Vue({
-// 	router,
-// 	store,
-// 	render: (h) => h(App)
-// }).$mount("#app")
+new Vue({
+	router,
+	store,
+	render: (h) => h(App)
+}).$mount("#app")
+
+export const messageService: MessageService = new MessageServiceMock()
 
 // ResourcesManager.init(store, 2)
 // ResourcesManager.startCounting()
 
-let camera: Camera, renderer: WebGLRenderer, mesh: Mesh, scene: Scene
+let camera: PerspectiveCamera, renderer: WebGLRenderer, mesh: Mesh, scene: Scene
 
 function init() {
-	camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10)
+	const windowSize = getWindowSize()
+	camera = new THREE.PerspectiveCamera(70, windowSize.width / windowSize.height, 0.01, 10)
 	camera.position.z = 1
 
 	scene = new THREE.Scene()
@@ -30,12 +37,30 @@ function init() {
 
 	scene.add(mesh)
 
+
 	renderer = new THREE.WebGLRenderer({antialias: true})
-	renderer.setSize(window.innerWidth, window.innerHeight)
+	renderer.setSize(windowSize.width, windowSize.height)
 	document.body.appendChild(renderer.domElement)
 
-	const login = new Login()
-	login.$mount(document.body)
+
+	window.addEventListener("resize", () => {
+		const windowSize = getWindowSize()
+		renderer.setSize(windowSize.width, windowSize.height)
+		camera.aspect = windowSize.width / windowSize.height
+		camera.updateProjectionMatrix()
+	})
+}
+
+function getWindowSize(): WindowSize {
+	return {
+		width: window.innerWidth,
+		height: window.innerHeight
+	}
+}
+
+interface WindowSize {
+	width: number
+	height: number
 }
 
 function animate() {

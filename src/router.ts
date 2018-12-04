@@ -1,21 +1,21 @@
+import Login from "@/components/Login.vue"
+import { messageService } from "@/main"
 import Vue from "vue"
 import Router from "vue-router"
-import Login from "@/components/Login.vue"
-import Overview from "@/components/Overview.vue"
-import { MessageService } from "@/shared/services/message-service"
+import Main from "@/components/Main.vue"
 
 Vue.use(Router)
 
 export default new Router({
 	routes: [
 		{path: "", component: Login},
-		{path: "/overview", component: Overview, beforeEnter: checkAuthentication},
+		{path: "/main", component: Main, beforeEnter: checkAuthentication},
 		{path: "*", redirect: "/"}
 	]
 })
 
 function checkAuthentication(to: any, from: any, next: any) {
-	if (MessageService.isConnected()) {
+	if (messageService.isConnected()) {
 		next()
 	} else {
 		next("/")
